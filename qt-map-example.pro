@@ -4,22 +4,24 @@
 #
 #-------------------------------------------------
 
-QT       += core gui webkit network
+QT       += core gui webkitwidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = qt-map-example
 TEMPLATE = app
 
+CONFIG += c++11
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    waypoint.cpp
+SOURCES += \
+    main.cpp \
+    mainwindow.cpp
 
-HEADERS  += mainwindow.h \
-    waypoint.h
+HEADERS += \
+    mainwindow.h
 
-FORMS    += mainwindow.ui
+FORMS += \
+    mainwindow.ui
 
 OTHER_FILES += \
     google.html

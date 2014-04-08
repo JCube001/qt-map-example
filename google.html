@@ -14,8 +14,12 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script>
 var map;
+var poly;
+var searchMarker = null;
+
 function initialize() {
   geocoder = new google.maps.Geocoder();
+
   var mapOptions = {
     zoom: 4,
     center: new google.maps.LatLng(38.548165, -94.577638),
@@ -23,21 +27,58 @@ function initialize() {
     scaleControl: true,
     streetViewControl: false
   };
+
   map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
+
+  var polyOptions = {
+    strokeColor: '#000000',
+    strokeOpacity: 1.0,
+    strokeWeight: 3
+  }
+  poly = new google.maps.Polyline(polyOptions);
+  poly.setMap(map);
+
+  // Add a listener for the click event
+  google.maps.event.addListener(map, 'click', addLatLng);
 }
 
 function searchAddress(address) {
   geocoder.geocode( {'address': address}, function(results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
+      if (searchMarker != null) {
+        searchMarker.setMap(null);
+      }
+
       map.setCenter(results[0].geometry.location);
-      var marker = new google.maps.Marker({
+
+      searchMarker = new google.maps.Marker({
         map: map,
         position: results[0].geometry.location
       });
     } else {
       alert('Geocode was not successful for the following reason: ' + status);
     }
+  });
+}
+
+/**
+ * Handles click events on a map, and adds a new point to the Polyline.
+ * @param {google.maps.MouseEvent} event
+ */
+function addLatLng(event) {
+
+  var path = poly.getPath();
+
+  // Because path is an MVCArray, we can simply append a new coordinate
+  // and it will automatically appear
+  path.push(event.latLng);
+
+  // Add a new marker at the new plotted point on the polyline.
+  var marker = new google.maps.Marker({
+    position: event.latLng,
+    title: '#' + path.getLength(),
+    map: map
   });
 }
 

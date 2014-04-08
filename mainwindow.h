@@ -16,10 +16,8 @@ public:
     ~MainWindow();
     
 private slots:
-    void on_actionQuit_triggered();
-
-    void on_searchButton_clicked();
-    void on_webView_loadFinished(bool finished);
+    void on_map_loadFinished(bool finished);
+    void on_buttonSearch_clicked();
 
 private:
     Ui::MainWindow *ui;

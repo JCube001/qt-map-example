@@ -1,2 +1,2 @@
-# Qt user
-*.pro.user
+# Qt user files
+*.pro.user*

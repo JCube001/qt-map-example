@@ -1,8 +1,5 @@
 <RCC>
-    <qresource prefix="/map">
+    <qresource prefix="/">
         <file>google.html</file>
-    </qresource>
-    <qresource prefix="/image">
-        <file>marker.png</file>
     </qresource>
 </RCC>

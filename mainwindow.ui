@@ -14,82 +14,57 @@
    <string>Map Tool</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_5">
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QSplitter" name="splitter">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
+     <widget class="QWebView" name="map">
+      <property name="url">
+       <url>
+        <string>qrc:/google.html</string>
+       </url>
       </property>
-      <widget class="QWidget" name="verticalLayoutWidget">
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <widget class="QTableView" name="waypointTableView"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="clearPushButton">
-          <property name="text">
-           <string>Clear</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="verticalLayoutWidget_2">
-       <layout class="QVBoxLayout" name="verticalLayout_4">
-        <item>
-         <widget class="QWebView" name="webView">
-          <property name="url">
-           <url>
-            <string>qrc:/map/google.html</string>
-           </url>
-          </property>
-          <property name="renderHints">
-           <set>QPainter::Antialiasing|QPainter::SmoothPixmapTransform|QPainter::TextAntialiasing</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QLineEdit" name="searchEdit">
-            <property name="maxLength">
-             <number>150</number>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="searchButton">
-            <property name="text">
-             <string>Search</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="Line" name="line_2">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="refreshButton">
-            <property name="text">
-             <string>Refresh</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="stopButton">
-            <property name="text">
-             <string>Stop</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
+      <property name="renderHints">
+       <set>QPainter::Antialiasing|QPainter::SmoothPixmapTransform|QPainter::TextAntialiasing</set>
+      </property>
      </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLineEdit" name="lineEditSearch">
+        <property name="maxLength">
+         <number>150</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="buttonSearch">
+        <property name="text">
+         <string>&amp;Search</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="Line" name="line_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="buttonRefresh">
+        <property name="text">
+         <string>&amp;Refresh</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="buttonStop">
+        <property name="text">
+         <string>S&amp;top</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -99,26 +74,24 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>&amp;File</string>
     </property>
-    <addaction name="actionQuit"/>
+    <addaction name="actionExit"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionQuit">
+  <action name="actionExit">
    <property name="text">
-    <string>Quit</string>
+    <string>E&amp;xit</string>
    </property>
-  </action>
-  <action name="actionWaypoints">
-   <property name="text">
-    <string>Waypoints</string>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
    </property>
   </action>
  </widget>
@@ -127,56 +100,56 @@
   <customwidget>
    <class>QWebView</class>
    <extends>QWidget</extends>
-   <header>QtWebKit/QWebView</header>
+   <header>QtWebKitWidgets/QWebView</header>
   </customwidget>
  </customwidgets>
  <resources/>
  <connections>
   <connection>
-   <sender>searchEdit</sender>
-   <signal>returnPressed()</signal>
-   <receiver>searchButton</receiver>
-   <slot>click()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>504</x>
-     <y>554</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>544</x>
-     <y>562</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>refreshButton</sender>
+   <sender>buttonRefresh</sender>
    <signal>clicked()</signal>
-   <receiver>webView</receiver>
+   <receiver>map</receiver>
    <slot>reload()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>655</x>
-     <y>554</y>
+     <x>654</x>
+     <y>558</y>
     </hint>
     <hint type="destinationlabel">
-     <x>745</x>
-     <y>521</y>
+     <x>650</x>
+     <y>494</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>stopButton</sender>
+   <sender>buttonStop</sender>
    <signal>clicked()</signal>
-   <receiver>webView</receiver>
+   <receiver>map</receiver>
    <slot>stop()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>772</x>
+     <x>771</x>
      <y>557</y>
     </hint>
     <hint type="destinationlabel">
-     <x>776</x>
-     <y>503</y>
+     <x>758</x>
+     <y>502</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEditSearch</sender>
+   <signal>returnPressed()</signal>
+   <receiver>buttonSearch</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>507</x>
+     <y>561</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>540</x>
+     <y>555</y>
     </hint>
    </hints>
   </connection>
